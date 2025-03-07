@@ -42,8 +42,7 @@ class _WordflowGameState extends State<WordflowGame> {
   @override
   void initState() {
     super.initState();
-    validWords =
-        all.map((word) => word.toLowerCase()).toSet(); // Changed to all
+    validWords = all.map((word) => word.toLowerCase()).toSet();
     _loadDictionary();
     generateLetters();
     startTimer();
@@ -128,6 +127,15 @@ class _WordflowGameState extends State<WordflowGame> {
   void clearWord() {
     if (currentWord.isNotEmpty) {
       setState(() => currentWord = '');
+    }
+  }
+
+  void removeLetter() {
+    // Added back the undo functionality
+    if (currentWord.isNotEmpty) {
+      setState(
+        () => currentWord = currentWord.substring(0, currentWord.length - 1),
+      );
     }
   }
 
@@ -280,6 +288,21 @@ class _WordflowGameState extends State<WordflowGame> {
                         'CLEAR',
                         style: TextStyle(fontSize: 14),
                       ),
+                    ),
+                    ElevatedButton(
+                      onPressed: removeLetter, // Added UNDO button
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.grey[400],
+                        foregroundColor: Colors.black,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 8,
+                        ),
+                      ),
+                      child: const Text('UNDO', style: TextStyle(fontSize: 14)),
                     ),
                     ElevatedButton(
                       onPressed: submitWord,
