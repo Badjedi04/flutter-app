@@ -1,6 +1,4 @@
-# flutter_application_1
-
-A new Flutter project.
+# WordFlow - A Flutter Project
 
 ## Getting Started
 
